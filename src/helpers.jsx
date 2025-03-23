@@ -24,6 +24,22 @@ export const createBudget = ({
       JSON.stringify([...existingBudgets, newItem]))
   }
 
+//Create expense
+export const createExpense = ({
+    name, amount, budgetId
+  }) => {
+    const newItem = {
+      id: crypto.randomUUID(),
+      name: name,
+      createdAt: Date.now(),
+      amount: +amount,
+      budgetId: budgetId
+    }
+    const existingExpenses = fetchData("expenses") ?? []; //fetchData("budgets") ?? [] will check for existing budgets, if there isn't then it will return empty array
+    return localStorage.setItem("expenses",
+      JSON.stringify([...existingExpenses, newItem]))
+  }
+
 //Delete item
 export const deleteItem = ({key}) => {
     return localStorage.removeItem(key);
