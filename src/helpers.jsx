@@ -49,7 +49,14 @@ export const createExpense = ({
   }
 
 //Delete item
-export const deleteItem = ({key}) => {
+export const deleteItem = ({key, id}) => {
+    const existingData = fetchData(key)
+    if(id){
+        const newData = existingData.filter(function(item){
+            return item.id !== id
+        })
+        return localStorage.setItem(key, JSON.stringify(newData))
+    }
     return localStorage.removeItem(key);
 }
 
