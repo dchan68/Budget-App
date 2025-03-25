@@ -1,5 +1,5 @@
 import React from 'react'
-import {useLoaderData, Form} from "react-router-dom"
+import {useLoaderData, Form, Link} from "react-router-dom"
 import { createBudget, createExpense, fetchData } from '../helpers'
 import Intro from '../components/Intro'
 import { toast } from 'react-toastify'
@@ -83,7 +83,12 @@ function Dashboard() {
                       expenses && expenses.length > 0 && (
                         <div className="grid-md">
                           <h2>Recent Expenses</h2>
-                          <Table expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)} />
+                          <Table expenses={expenses.sort(function(a, b){
+                            return b.createdAt - a.createdAt
+                          }).slice(0,8) /*will show the first 8 expenses */} /> 
+                          {expenses.length > 8 && (
+                            <Link to="expenses" className="btn btn--dark">View all expenses</Link>
+                          )}
                         </div>
                       )
                     }
